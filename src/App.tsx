@@ -2,12 +2,16 @@ import Routes from "./routes/routes";
 
 import "./styles/global.css";
 
+import { UserProvider } from "./contexts/UserContext";
+
 function App() {
   return (
-    <div className="w-screen h-full flex justify-center">
-      <Routes />
-    </div>
-  )
+    <UserProvider>
+      <div className="w-screen flex justify-center font-manRope">
+        <Routes />
+      </div>
+    </UserProvider>
+  );
 }
 
 export default App;
