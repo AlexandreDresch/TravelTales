@@ -49,10 +49,10 @@ export function ImageCarousel() {
   }, [autoplay]);
 
   return (
-    <div className="max-w-[1200px] h-[780px] w-1/2 m-auto py-16 px-4 relative group hidden lg:block">
+    <div className="max-w-[1200px] h-full w-1/2 m-auto relative group hidden lg:block">
       <div
         style={{ backgroundImage: `url(${slides[currentIndex].url})` }}
-        className="w-auto h-[700px] rounded-l-lg bg-center bg-cover duration-500"
+        className="w-auto h-[735.5px] rounded-l-lg bg-center bg-cover duration-500"
       ></div>
 
       <div className="hidden group-hover:block absolute bottom-1 -translate-x-0 translate-y-[-80%] left-5 text-2xl rounded-full p-2 bg-black/20 text-white cursor-pointer">
