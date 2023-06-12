@@ -7,7 +7,7 @@ import { UserProvider } from "./contexts/UserContext";
 function App() {
   return (
     <UserProvider>
-      <div className="w-screen flex justify-center font-manRope">
+      <div className="w-screen min-h-screen flex justify-center font-manRope bg-slate-50">
         <Routes />
       </div>
     </UserProvider>
