@@ -1,27 +1,70 @@
-import { PostCard } from "../PostCard";
+import { useContext, useState } from "react";
+import { PostModal } from "../PostModal";
+import { Stack } from "@phosphor-icons/react";
+import UserContext from "../../contexts/UserContext";
 
-type Post = {
+interface PostData {
+  User: {
+    username: string;
+  };
+  country: string;
+  description: string | null;
   id: number;
-  pictures: string;
-};
+  pictures: [
+    {
+      url: string;
+    }
+  ];
+}
 
 interface Feed {
-  posts: Post[];
+  posts: PostData[];
 }
 
 export function Feed({ posts }: Feed) {
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [postId, setPostId] = useState(0);
+
+  function expandModal(project:number) {
+    setPostId(project);
+    setIsOpen(true);
+}
+
   return (
-    <ul className="px-2 py-4 grid mt-6 rounded-sm grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-3 gap-y-4 mb-4 bg-white md:[&>*:nth-child(2)]:col-span-2 md:[&>*:nth-child(2)]:row-span-2 grid-flow-row-dense">
+    <ul className="px-2 py-4 grid mt-6 rounded-sm grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-3 gap-y-4 mb-4 bg-white  grid-flow-row-dense">
       {posts && posts.length > 0 ? (
-        posts.map((post) => (
-          <PostCard
-            key={post.id}
-            icon={post.pictures.length > 1}
-            picture={post.pictures[0].url}
-          />
-        ))
+        <>
+          {posts.map((post) => (
+            <div key={post.id}>
+              <li
+                className="cursor-pointer relative"                
+                onClick={() => expandModal(post.id)}
+              >
+                <img
+                  src={post.pictures[0].url}
+                  alt=""
+                  className="w-full h-auto rounded-sm max-w-fit"
+                />
+                {post.pictures.length > 1 && (
+                  <Stack
+                    size={20}
+                    className="absolute bottom-1 left-1 text-white"
+                  />
+                )}
+              </li>
+            </div>
+          ))}
+
+          {modalIsOpen && (
+            <PostModal
+              postId={postId}
+              modalIsOpen={modalIsOpen}
+              setIsOpen={setIsOpen}
+            />
+          )}
+        </>
       ) : (
-        <div className="flex justify-center">No posts found</div>
+        <div className="w-full flex justify-center">No posts found</div>
       )}
     </ul>
   );

@@ -5,16 +5,23 @@ import {
   SignOut,
   User,
 } from "@phosphor-icons/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useWindowDimensions } from "../../hooks/useWindowDimensions";
 import { DropdownMenu } from "../DropDownMenu";
+import UserContext from "../../contexts/UserContext";
 
 export function UserNav() {
   const [isMobile, setIsMobile] = useState(false);
   const { pathname } = useLocation();
 
   const { width } = useWindowDimensions();
+
+  const { setUserData } = useContext(UserContext)
+
+  async function handleSignOut() {
+    setUserData({})
+  }
 
   useEffect(() => {
     if (width <= 642) {
@@ -79,7 +86,7 @@ export function UserNav() {
             {isMobile && "New Post"}
           </NavLink>
           <button className="hover:text-red-500 hover:scale-125 transition-transform">
-            <SignOut size={26} />
+            <SignOut size={26} onClick={handleSignOut}/>
           </button>
         </nav>
       )}
