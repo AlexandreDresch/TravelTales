@@ -20,7 +20,7 @@ export function ImageCarousel({ children: slides }: ImageCarouselProps) {
   return (
     <div className="overflow-hidden relative">
       <div
-        className="flex max-w-sm transition-transform ease-out duration-500"
+        className="flex max-w-lg transition-transform ease-out duration-500"
         style={{ transform: `translateX(-${current * 100}%)` }}
       >
         {slides}

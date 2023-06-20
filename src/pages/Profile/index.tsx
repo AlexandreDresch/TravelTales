@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { UserNav } from "../../components/UserNav";
 import { NewPostForm } from "../../components/Forms/NewPostForm";
+import { UserProfile } from "../../components/UserProfile";
 
 export default function Profile() {
   const { pathname } = useLocation();
@@ -14,7 +15,7 @@ export default function Profile() {
           <UserNav />
 
           {pathname === "/profile" ? (
-            "Coming Soon"
+            <UserProfile />
           ) : pathname === "/profile/statistics" ? (
             "Coming Soon"
           ) : (
