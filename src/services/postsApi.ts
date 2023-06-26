@@ -13,6 +13,17 @@ interface Comment {
   token: string;
 }
 
+interface Description {
+  postId: number;
+  description: string;
+  token: string;
+}
+
+interface Delete {
+  postId: number;
+  token: string;
+}
+
 export async function createPost({ files, description, country, token }: Post) {
   const data = {
     files: Array.isArray(files) ? files : [files],
@@ -55,13 +66,39 @@ export async function getPostsByUserId({ userId, token }: { userId: number, toke
   return response.data;
 }
 
+export async function updateDescription({postId, description, token}: Description) {
+  const data = {
+    description,
+    postId,    
+  };
+
+  const response = await api.put("/posts", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  return response.data;
+}
+
+export async function deletePost({ postId, token }: Delete) {
+  const response = await api.delete(`/posts/${postId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
 export async function createComment({postId, comment, token}: Comment) {
   const data = {
     postId,
     comment
   };
 
-  const response = await api.post("/posts/comment", data, {
+  const response = await api.post("/comment", data, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
